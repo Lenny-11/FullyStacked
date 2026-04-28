@@ -5,10 +5,8 @@ package com.deepseek.fullystacked.ui.screens.track
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,11 +16,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.deepseek.fullystacked.ui.screens.Auth.LoginScreen
 import com.deepseek.fullystacked.ui.theme.Purple100
 import com.deepseek.fullystacked.ui.theme.Purple50
 
 @Composable
 fun TrackSelectionScreen(
+    navController: NavHostController,
     onWebClick: () -> Unit = {},
     onAppClick: () -> Unit = {}
 ) {
@@ -103,6 +105,9 @@ fun TrackCard(
 @Composable
 fun TrackSelectionScreenPreview() {
     MaterialTheme {
-        TrackSelectionScreen()
+        TrackSelectionScreen(
+            navController = rememberNavController(),
+
+            )
     }
 }

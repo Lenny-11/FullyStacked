@@ -15,27 +15,29 @@ import com.deepseek.fullystacked.ui.screens.course.CourseScreen
 import com.deepseek.fullystacked.ui.screens.lesson.LessonScreen
 import com.deepseek.fullystacked.ui.screens.home.HomeScreen
 
+// ─────────────────────────────────────────────────────────────────────────────
+// ROUTES (define once, keep consistent everywhere)
+// ─────────────────────────────────────────────────────────────────────────────
 
-
-// ------------------------------------------------------------------
+// ─────────────────────────────────────────────────────────────────────────────
 // NAV HOST
-// ------------------------------------------------------------------
+// ─────────────────────────────────────────────────────────────────────────────
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     startDestination: String = ROUTE_LOGIN
 ) {
-
     NavHost(
         navController = navController,
         modifier = modifier,
         startDestination = startDestination
     ) {
 
-        // ── LOGIN ─────────────────────────────
+        // ── LOGIN ─────────────────────────────────────────────────────────
         composable(ROUTE_LOGIN) {
             LoginScreen(
+                navController = navController,
                 onSignInClick = {
                     navController.navigate(ROUTE_TRACK) {
                         popUpTo(ROUTE_LOGIN) { inclusive = true }
@@ -44,19 +46,19 @@ fun AppNavHost(
             )
         }
 
-        // ── TRACK SELECTION ───────────────────
+        // ── TRACK SELECTION ───────────────────────────────────────────────
         composable(ROUTE_TRACK) {
             TrackSelectionScreen(
                 onAppClick = {
-                    navController.navigate("$ROUTE_COURSE/app")
+                    navController.navigate("$ROUTE_COURSE/$TRACK_APP")
                 },
                 onWebClick = {
-                    navController.navigate("$ROUTE_COURSE/web")
+                    navController.navigate("$ROUTE_COURSE/$TRACK_WEB")
                 }
             )
         }
 
-        // ── COURSE SCREEN ─────────────────────
+        // ── COURSE SCREEN (single clean version) ──────────────────────────
         composable(
             route = "$ROUTE_COURSE/{track}",
             arguments = listOf(
@@ -64,38 +66,41 @@ fun AppNavHost(
             )
         ) { backStackEntry ->
 
-            val track = backStackEntry.arguments?.getString("track") ?: "app"
+            val track = backStackEntry.arguments?.getString("track") ?: TRACK_APP
 
             CourseScreen(
-                courseTitle = if (track == "app")
+                courseTitle = if (track == TRACK_APP)
                     "Android Development"
                 else
                     "Web Development",
-
-                onLessonClick = { lessonId ->
-                    navController.navigate("$ROUTE_LESSON/$lessonId")
+                onLessonClick = { startIndex ->
+                    navController.navigate("$ROUTE_LESSON/$startIndex")
                 }
             )
         }
 
-        // ── LESSON SCREEN ─────────────────────
+        // ── LESSON SCREEN ────────────────────────────────────────────────
         composable(
-            route = "$ROUTE_LESSON/{lessonId}",
+            route = "$ROUTE_LESSON/{startIndex}",
             arguments = listOf(
-                navArgument("lessonId") { type = NavType.StringType }
+                navArgument("startIndex") {
+                    type = NavType.IntType
+                    defaultValue = 0
+                }
             )
         ) { backStackEntry ->
 
-            val lessonId = backStackEntry.arguments?.getString("lessonId") ?: ""
+            val startIndex = backStackEntry.arguments?.getInt("startIndex") ?: 0
 
             LessonScreen(
-                title = "Lesson $lessonId"
+                navController = navController,
+                title = "Lessons ${startIndex + 1}-${startIndex + 3}"
             )
         }
 
-        // ── HOME (optional dashboard screen) ───
-        composable(route = ROUTE_HOME) {
-            HomeScreen()
+        // ── HOME ──────────────────────────────────────────────────────────
+        composable(ROUTE_HOME) {
+            HomeScreen(navController = navController)
         }
     }
 }

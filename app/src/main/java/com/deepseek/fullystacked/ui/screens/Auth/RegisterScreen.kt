@@ -39,7 +39,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 
 // ---------------------------------------------------------------------------
@@ -117,6 +118,8 @@ fun evaluateStrength(password: String): PasswordStrength? {
 // ---------------------------------------------------------------------------
 @Composable
 fun RegisterScreen(
+    navController: NavController,
+    onLoginClick: (String, String) -> Unit,
     uiState: RegisterUiState = RegisterUiState(),
     onFullNameChange: (String) -> Unit = {},
     onEmailChange: (String) -> Unit = {},
@@ -211,16 +214,18 @@ fun RegisterScreen(
             label = "register_step_anim"
         ) { step ->
             when (step) {
-                RegisterStep.CREDENTIALS -> StepCredentials(
-                    fullName = uiState.fullName,
-                    email = uiState.email,
-                    onFullNameChange = onFullNameChange,
-                    onEmailChange = onEmailChange,
-                    onNext = onNextStep,
-                    isLoading = uiState.isLoading,
-                    errorMessage = uiState.errorMessage,
-                    onSignInClick = onSignInClick
-                )
+                RegisterStep.CREDENTIALS -> {
+                    StepCredentials(
+                        fullName = uiState.fullName,
+                        email = uiState.email,
+                        onFullNameChange = onFullNameChange,
+                        onEmailChange = onEmailChange,
+                        onNext = onNextStep,
+                        isLoading = uiState.isLoading,
+                        errorMessage = uiState.errorMessage,
+                        onSignInClick = onSignInClick
+                    )
+                }
                 RegisterStep.PASSWORD -> StepPassword(
                     password = uiState.password,
                     confirmPassword = uiState.confirmPassword,
@@ -675,6 +680,8 @@ private fun regTextFieldColors() = OutlinedTextFieldDefaults.colors(
 @Composable
 fun RegisterScreenPreview() {
     MaterialTheme {
-        RegisterScreen()
+        RegisterScreen(
+            navController = rememberNavController(),
+            onLoginClick = { _, _ -> })
     }
 }

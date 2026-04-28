@@ -1,6 +1,5 @@
 package com.deepseek.fullystacked.ui.screens.Auth
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,7 +10,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
-
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -28,17 +26,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lint.kotlin.metadata.Visibility
 
 // ---------------------------------------------------------------------------
-// Brand colours — swap these out with your theme tokens when ready
+// Brand colours
 // ---------------------------------------------------------------------------
 private val Purple500 = Color(0xFF534AB7)
 private val Purple100 = Color(0xFFCECBF6)
 private val Purple50  = Color(0xFFEEEDFE)
 
 // ---------------------------------------------------------------------------
-// Data class for UI state
+// UI State
 // ---------------------------------------------------------------------------
 data class LoginUiState(
     val email: String = "",
@@ -48,7 +45,7 @@ data class LoginUiState(
 )
 
 // ---------------------------------------------------------------------------
-// LoginScreen composable
+// Login Screen
 // ---------------------------------------------------------------------------
 @Composable
 fun LoginScreen(
@@ -71,9 +68,9 @@ fun LoginScreen(
             .padding(horizontal = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Spacer(modifier = Modifier.height(56.dp))
 
-        // ── App logo ──────────────────────────────────────────────────────
         AppLogo()
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -81,27 +78,25 @@ fun LoginScreen(
         Text(
             text = "Fully Stacked",
             fontSize = 22.sp,
-            fontWeight = FontWeight.Medium,
-            color = MaterialTheme.colorScheme.onBackground
+            fontWeight = FontWeight.Medium
         )
+
         Text(
             text = "Sign in to continue learning",
             fontSize = 14.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 4.dp)
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
         Spacer(modifier = Modifier.height(36.dp))
 
-        // ── Email field ───────────────────────────────────────────────────
         FieldLabel("Email")
+
         OutlinedTextField(
             value = uiState.email,
             onValueChange = onEmailChange,
             modifier = Modifier.fillMaxWidth(),
-            placeholder = { Text("you@example.com", fontSize = 14.sp) },
-            singleLine = true,
             shape = RoundedCornerShape(12.dp),
+            singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Next
@@ -114,17 +109,17 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(14.dp))
 
-        // ── Password field ────────────────────────────────────────────────
         FieldLabel("Password")
+
         OutlinedTextField(
             value = uiState.password,
             onValueChange = onPasswordChange,
             modifier = Modifier.fillMaxWidth(),
-            placeholder = { Text("••••••••••", fontSize = 14.sp) },
-            singleLine = true,
             shape = RoundedCornerShape(12.dp),
-            visualTransformation = if (passwordVisible)
-                VisualTransformation.None else PasswordVisualTransformation(),
+            singleLine = true,
+            visualTransformation =
+                if (passwordVisible) VisualTransformation.None
+                else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Done
@@ -137,43 +132,30 @@ fun LoginScreen(
             ),
             trailingIcon = {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = if (passwordVisible)
-                            Icons.Outlined.Visibility else Icons.Outlined.VisibilityOff, contentDescription = if (passwordVisible)
-                            "Hide password" else "Show password", tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Icon(
+                        imageVector =
+                            if (passwordVisible) Icons.Outlined.Visibility
+                            else Icons.Outlined.VisibilityOff,
+                        contentDescription = null
+                    )
                 }
             },
             colors = authTextFieldColors()
         )
 
-        // ── Forgot password ───────────────────────────────────────────────
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
-            Text(
-                text = "Forgot password?",
-                fontSize = 12.sp,
-                color = Purple500,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier
-                    .padding(top = 8.dp)
-                    .clickable(onClick = onForgotPasswordClick)
-            )
-        }
-
         Spacer(modifier = Modifier.height(20.dp))
 
-        // ── Error message ─────────────────────────────────────────────────
-        uiState.errorMessage?.let { error ->
+        uiState.errorMessage?.let {
             Text(
-                text = error,
+                text = it,
                 color = MaterialTheme.colorScheme.error,
                 fontSize = 13.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 12.dp)
+                textAlign = TextAlign.Center
             )
         }
 
-        // ── Sign in button ────────────────────────────────────────────────
+        Spacer(modifier = Modifier.height(12.dp))
+
         Button(
             onClick = onSignInClick,
             enabled = !uiState.isLoading,
@@ -183,79 +165,13 @@ fun LoginScreen(
             shape = RoundedCornerShape(12.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Purple500)
         ) {
-            if (uiState.isLoading) {
-                CircularProgressIndicator(
-                    color = Color.White,
-                    modifier = Modifier.size(20.dp),
-                    strokeWidth = 2.dp
-                )
-            } else {
-                Text(
-                    text = "Sign in",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = Color.White
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // ── Divider ───────────────────────────────────────────────────────
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            HorizontalDivider(modifier = Modifier.weight(1f), thickness = 0.5.dp)
-            Text(
-                text = "  or continue with  ",
-                fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            HorizontalDivider(modifier = Modifier.weight(1f), thickness = 0.5.dp)
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // ── Social sign-in buttons ────────────────────────────────────────
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            SocialButton(
-                label = "Google",
-                modifier = Modifier.weight(1f),
-                onClick = onGoogleSignInClick
-            )
-            SocialButton(
-                label = "GitHub",
-                modifier = Modifier.weight(1f),
-                onClick = onGitHubSignInClick
-            )
-        }
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        // ── Sign up link ──────────────────────────────────────────────────
-        Row(horizontalArrangement = Arrangement.Center) {
-            Text(
-                text = "Don't have an account? ",
-                fontSize = 13.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Text(
-                text = "Sign up",
-                fontSize = 13.sp,
-                fontWeight = FontWeight.Medium,
-                color = Purple500,
-                modifier = Modifier.clickable(onClick = onSignUpClick)
-            )
+            Text("Sign in", color = Color.White)
         }
     }
 }
 
 // ---------------------------------------------------------------------------
-// Sub-components
+// Helpers
 // ---------------------------------------------------------------------------
 
 @Composable
@@ -263,14 +179,14 @@ private fun AppLogo() {
     Box(
         modifier = Modifier
             .size(56.dp)
-            .background(color = Purple50, shape = RoundedCornerShape(16.dp))
+            .background(Purple50, RoundedCornerShape(16.dp))
             .border(0.5.dp, Purple100, RoundedCornerShape(16.dp)),
         contentAlignment = Alignment.Center
     ) {
         Box(
             modifier = Modifier
                 .size(28.dp)
-                .background(color = Purple500, shape = RoundedCornerShape(8.dp))
+                .background(Purple500, RoundedCornerShape(8.dp))
         )
     }
 }
@@ -282,43 +198,15 @@ private fun FieldLabel(text: String) {
         fontSize = 13.sp,
         fontWeight = FontWeight.Medium,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 6.dp)
+        modifier = Modifier.padding(bottom = 6.dp)
     )
 }
 
 @Composable
-private fun SocialButton(
-    label: String,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
-) {
-    OutlinedButton(
-        onClick = onClick,
-        modifier = modifier.height(44.dp),
-        shape = RoundedCornerShape(12.dp),
-        border = ButtonDefaults.outlinedButtonBorder.copy(width = 0.5.dp),
-        colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        )
-    ) {
-        Text(
-            text = label,
-            fontSize = 13.sp,
-            fontWeight = FontWeight.Medium,
-            color = MaterialTheme.colorScheme.onSurface
-        )
-    }
-}
-
-@Composable
-private fun authTextFieldColors() = OutlinedTextFieldDefaults.colors(
-    focusedBorderColor = Purple500,
-    focusedContainerColor = Purple50,
+fun authTextFieldColors() = OutlinedTextFieldDefaults.colors(
+    focusedBorderColor = MaterialTheme.colorScheme.primary,
     unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
-    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
-    cursorColor = Purple500
+    cursorColor = MaterialTheme.colorScheme.primary
 )
 
 // ---------------------------------------------------------------------------

@@ -13,6 +13,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.deepseek.fullystacked.ui.screens.Auth.LoginScreen
 import com.deepseek.fullystacked.ui.theme.*
 
 @Composable
@@ -21,7 +24,8 @@ fun ProfileScreen(
     level: Int = 5,
     streak: Int = 7,
     progress: Float = 0.65f,
-    completedLessons: Int = 24
+    completedLessons: Int = 24,
+    navController: NavHostController
 ) {
 
     Column(
@@ -149,6 +153,9 @@ fun StatBox(title: String, value: String) {
 @Composable
 fun ProfilePreview() {
     MaterialTheme {
-        ProfileScreen()
+        ProfileScreen(
+            navController = rememberNavController(),
+
+            )
     }
 }

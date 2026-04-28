@@ -14,11 +14,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.deepseek.fullystacked.ui.screens.Auth.LoginScreen
+import com.deepseek.fullystacked.ui.screens.course.CourseScreen
 import com.deepseek.fullystacked.ui.theme.Purple100
 import com.deepseek.fullystacked.ui.theme.Purple50
 
 @Composable
-fun HomeScreen(
+fun HomeScreen( navController: NavController,
     onCourseClick: (String) -> Unit = {}
 ) {
     Column(
@@ -89,6 +93,9 @@ fun CourseCard(
 @Composable
 fun HomeScreenPreview() {
     MaterialTheme {
-        HomeScreen()
+        LoginScreen(
+            navController = rememberNavController(),
+
+            )
     }
 }
