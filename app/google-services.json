@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "675546641729",
+    "project_id": "fullystacked-42881",
+    "storage_bucket": "fullystacked-42881.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675546641729:android:edfcb5ad94d8e0a41cddc0",
+        "android_client_info": {
+          "package_name": "com.deepseek.fullystacked"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsUR-5FyS4ZL_cSdW4QFRU1YWGE2hUOBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
