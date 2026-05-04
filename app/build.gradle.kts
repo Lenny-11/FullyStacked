@@ -51,7 +51,10 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material3.lint)
     implementation(libs.androidx.navigation.compose)
+<<<<<<< HEAD
     implementation(libs.firebase.auth.ktx)
+=======
+>>>>>>> d7441402e8e1d95ddae610f6baec1eb4bb5d1692
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

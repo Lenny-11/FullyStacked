@@ -1,5 +1,10 @@
 package com.deepseek.fullystacked.ui.screens.track
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> d7441402e8e1d95ddae610f6baec1eb4bb5d1692
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -10,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+<<<<<<< HEAD
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -43,6 +49,24 @@ fun TrackSelectionScreen(
 ) {
     val context = LocalContext.current
 
+=======
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.deepseek.fullystacked.ui.screens.Auth.LoginScreen
+import com.deepseek.fullystacked.ui.theme.Purple100
+import com.deepseek.fullystacked.ui.theme.Purple50
+
+@Composable
+fun TrackSelectionScreen(
+    navController: NavHostController,
+    onWebClick: () -> Unit = {},
+    onAppClick: () -> Unit = {}
+) {
+>>>>>>> d7441402e8e1d95ddae610f6baec1eb4bb5d1692
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -50,6 +74,7 @@ fun TrackSelectionScreen(
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+<<<<<<< HEAD
         Spacer(modifier = Modifier.height(60.dp))
 
         // ── Header ────────────────────────────────────────────────────────
@@ -59,10 +84,22 @@ fun TrackSelectionScreen(
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground
         )
+=======
+
+        Spacer(modifier = Modifier.height(60.dp))
+
+        Text(
+            text = "Choose your path",
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Medium
+        )
+
+>>>>>>> d7441402e8e1d95ddae610f6baec1eb4bb5d1692
         Text(
             text = "Start your full-stack journey",
             fontSize = 14.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
+<<<<<<< HEAD
             modifier = Modifier.padding(top = 6.dp)
         )
 
@@ -121,10 +158,32 @@ fun TrackSelectionScreen(
                 PdfUtils.openPdfAtPage(context, WEB_TRACK_PDF_PAGE)
                 onWebClick()
             }
+=======
+            modifier = Modifier.padding(top = 4.dp)
+        )
+
+        Spacer(modifier = Modifier.height(40.dp))
+
+        // ── App Development ─────────────────────
+        TrackCard(
+            title = "App Development",
+            subtitle = "Kotlin, Android, Jetpack Compose",
+            onClick = onAppClick
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // ── Web Development ─────────────────────
+        TrackCard(
+            title = "Web Development",
+            subtitle = "HTML, CSS, JavaScript, React",
+            onClick = onWebClick
+>>>>>>> d7441402e8e1d95ddae610f6baec1eb4bb5d1692
         )
     }
 }
 
+<<<<<<< HEAD
 // ─────────────────────────────────────────────────────────────────────────────
 // TrackCard
 // ─────────────────────────────────────────────────────────────────────────────
@@ -138,17 +197,29 @@ fun TrackCard(
     borderColor: Color,
     accentColor: Color,
     pdfHint: String = "",
+=======
+@Composable
+fun TrackCard(
+    title: String,
+    subtitle: String,
+>>>>>>> d7441402e8e1d95ddae610f6baec1eb4bb5d1692
     onClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
+<<<<<<< HEAD
             .background(bgColor, RoundedCornerShape(16.dp))
             .border(1.dp, borderColor, RoundedCornerShape(16.dp))
+=======
+            .background(Purple50, RoundedCornerShape(16.dp))
+            .border(0.5.dp, Purple100, RoundedCornerShape(16.dp))
+>>>>>>> d7441402e8e1d95ddae610f6baec1eb4bb5d1692
             .clickable(onClick = onClick)
             .padding(20.dp)
     ) {
         Column {
+<<<<<<< HEAD
             // Title row
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(emoji, fontSize = 28.sp)
@@ -162,11 +233,19 @@ fun TrackCard(
             }
 
             Spacer(modifier = Modifier.height(6.dp))
+=======
+            Text(
+                text = title,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium
+            )
+>>>>>>> d7441402e8e1d95ddae610f6baec1eb4bb5d1692
 
             Text(
                 text = subtitle,
                 fontSize = 13.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
+<<<<<<< HEAD
                 lineHeight = 20.sp
             )
 
@@ -218,5 +297,20 @@ fun TrackCard(
 fun TrackSelectionScreenPreview() {
     FullyStackedTheme {
         TrackSelectionScreen()
+=======
+                modifier = Modifier.padding(top = 4.dp)
+            )
+        }
+    }
+}
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun TrackSelectionScreenPreview() {
+    MaterialTheme {
+        TrackSelectionScreen(
+            navController = rememberNavController(),
+
+            )
+>>>>>>> d7441402e8e1d95ddae610f6baec1eb4bb5d1692
     }
 }

@@ -57,8 +57,11 @@ fun LoginScreen(
     onGitHubSignInClick: () -> Unit = {},
     onForgotPasswordClick: () -> Unit = {},
     onSignUpClick: () -> Unit = {}
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> d7441402e8e1d95ddae610f6baec1eb4bb5d1692
 ) {
     val focusManager = LocalFocusManager.current
     var passwordVisible by remember { mutableStateOf(false) }
