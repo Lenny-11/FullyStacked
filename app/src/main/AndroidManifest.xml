@@ -11,7 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FullyStacked">
-<<<<<<< HEAD
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -23,8 +22,6 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-=======
->>>>>>> d7441402e8e1d95ddae610f6baec1eb4bb5d1692
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -32,17 +29,10 @@
             android:theme="@style/Theme.FullyStacked">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-<<<<<<< HEAD
-=======
-
->>>>>>> d7441402e8e1d95ddae610f6baec1eb4bb5d1692
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
-<<<<<<< HEAD
 </manifest>
-=======
-</manifest>
->>>>>>> d7441402e8e1d95ddae610f6baec1eb4bb5d1692

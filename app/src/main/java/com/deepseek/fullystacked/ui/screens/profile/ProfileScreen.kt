@@ -20,7 +20,7 @@ import com.deepseek.fullystacked.ui.theme.*
 
 @Composable
 fun ProfileScreen(
-    username: String = "John Doe",
+    username: String = "Lenny Kariuki",
     level: Int = 5,
     streak: Int = 7,
     progress: Float = 0.65f,

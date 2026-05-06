@@ -20,29 +20,32 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import androidx.compose.foundation.layout.FlowRow
-
+import com.deepseek.fullystacked.navigation.ROUTE_APP
 import com.deepseek.fullystacked.navigation.ROUTE_COURSE
 
-// Colors
-private val Purple700  = Color(0xFF3730A3)
-private val Purple500  = Color(0xFF534AB7)
-private val Purple300  = Color(0xFF8B83E0)
-private val Purple100  = Color(0xFFCECBF6)
-private val Purple50   = Color(0xFFEEEDFE)
-private val BgDark     = Color(0xFF0F0E1A)
-private val Accent     = Color(0xFF7C6FF7)
+// ─────────────────────────────────────────────────────────────────────────────
+// Colours
+// ─────────────────────────────────────────────────────────────────────────────
+private val Purple700 = Color(0xFF3730A3)
+private val Purple500 = Color(0xFF534AB7)
+private val Purple300 = Color(0xFF8B83E0)
+private val Purple100 = Color(0xFFCECBF6)
+private val Purple50  = Color(0xFFEEEDFE)
+private val BgDark    = Color(0xFF0F0E1A)
+private val Accent    = Color(0xFF7C6FF7)
 
+// ─────────────────────────────────────────────────────────────────────────────
 // Data
+// ─────────────────────────────────────────────────────────────────────────────
 private data class TechItem(val emoji: String, val name: String, val desc: String, val color: Color)
 
 private val appTechStack = listOf(
-    TechItem("🟣", "Kotlin", "Primary language", Purple500),
-    TechItem("🎨", "Jetpack Compose","Modern Android UI", Color(0xFF1A6FD4)),
-    TechItem("🧱", "Ktor","Backend REST APIs", Color(0xFF0F766E)),
-    TechItem("🗄️", "Room ORM","Local database", Color(0xFFEF9F27)),
-    TechItem("🔄", "Coroutines","Async & concurrency", Color(0xFF7C3AED)),
-    TechItem("🔥", "Firebase","Auth & cloud storage", Color(0xFFEA580C)),
+    TechItem("🟣", "Kotlin",          "Primary language",    Purple500),
+    TechItem("🎨", "Jetpack Compose", "Modern Android UI",   Color(0xFF1A6FD4)),
+    TechItem("🧱", "Ktor",            "Backend REST APIs",   Color(0xFF0F766E)),
+    TechItem("🗄️", "Room ORM",        "Local database",      Color(0xFFEF9F27)),
+    TechItem("🔄", "Coroutines",      "Async & concurrency", Color(0xFF7C3AED)),
+    TechItem("🔥", "Firebase",        "Auth & cloud storage",Color(0xFFEA580C)),
 )
 
 private val appSkills = listOf(
@@ -52,13 +55,16 @@ private val appSkills = listOf(
     "Material Design 3", "State Management"
 )
 
+// ─────────────────────────────────────────────────────────────────────────────
+// AppScreen
+// ─────────────────────────────────────────────────────────────────────────────
 @Composable
 fun AppScreen(navController: NavController) {
 
     val infiniteTransition = rememberInfiniteTransition(label = "glow")
     val glowScale by infiniteTransition.animateFloat(
         initialValue = 1f,
-        targetValue = 1.12f,
+        targetValue  = 1.12f,
         animationSpec = infiniteRepeatable(
             tween(1800, easing = EaseInOutSine),
             RepeatMode.Reverse
@@ -73,7 +79,7 @@ fun AppScreen(navController: NavController) {
             .verticalScroll(rememberScrollState())
     ) {
 
-        // Hero Section
+        // ── Hero ──────────────────────────────────────────────────────────
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -85,22 +91,21 @@ fun AppScreen(navController: NavController) {
                     )
                 )
         ) {
-
             // Background grid
             Canvas(modifier = Modifier.fillMaxSize()) {
                 val step = 44.dp.toPx()
                 val lineColor = Color.White.copy(alpha = 0.03f)
-
                 var x = 0f
                 while (x < size.width) {
-                    drawLine(lineColor, androidx.compose.ui.geometry.Offset(x, 0f),
+                    drawLine(lineColor,
+                        androidx.compose.ui.geometry.Offset(x, 0f),
                         androidx.compose.ui.geometry.Offset(x, size.height), 1f)
                     x += step
                 }
-
                 var y = 0f
                 while (y < size.height) {
-                    drawLine(lineColor, androidx.compose.ui.geometry.Offset(0f, y),
+                    drawLine(lineColor,
+                        androidx.compose.ui.geometry.Offset(0f, y),
                         androidx.compose.ui.geometry.Offset(size.width, y), 1f)
                     y += step
                 }
@@ -120,7 +125,7 @@ fun AppScreen(navController: NavController) {
                 Text("←", fontSize = 16.sp, color = Color.White)
             }
 
-            // Center content
+            // Centre content
             Column(
                 modifier = Modifier.align(Alignment.Center),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -137,7 +142,6 @@ fun AppScreen(navController: NavController) {
                                 RoundedCornerShape(26.dp)
                             )
                     )
-
                     Box(
                         modifier = Modifier
                             .size(68.dp)
@@ -154,14 +158,13 @@ fun AppScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(14.dp))
 
                 Text(
-                    text = "Android Development",
+                    text  = "Android Development",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
-
                 Text(
-                    text = "Build real Android apps with Kotlin",
+                    text  = "Build real Android apps with Kotlin",
                     fontSize = 13.sp,
                     color = Purple300
                 )
@@ -174,17 +177,20 @@ fun AppScreen(navController: NavController) {
                     .padding(bottom = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(24.dp)
             ) {
-                StatChip("12", "Lessons")
-                StatChip("4", "Modules")
-                StatChip("6h", "Content")
+                AppStatChip("12", "Lessons")
+                AppStatChip("4",  "Modules")
+                AppStatChip("6h", "Content")
             }
-        }
+        }   // end Hero Box
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        SectionLabel("What you'll build")
-
-        Column(modifier = Modifier.padding(16.dp)) {
+        // ── What you'll build ─────────────────────────────────────────────
+        AppSectionLabel("What you'll build")
+        Column(
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
             listOf(
                 "📱 A production-ready Android app",
                 "🔐 Firebase auth & user accounts",
@@ -193,77 +199,126 @@ fun AppScreen(navController: NavController) {
                 "🧭 Multi-screen navigation flows",
                 "🎨 Custom Jetpack Compose UI"
             ).forEach {
-                Text(it, fontSize = 14.sp)
+                Text(it, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurface)
             }
         }
 
-        SectionLabel("Tech stack")
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Column(modifier = Modifier.padding(16.dp)) {
+        // ── Tech stack ────────────────────────────────────────────────────
+        AppSectionLabel("Tech stack")
+        Column(
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             appTechStack.chunked(2).forEach { row ->
-                Row {
-                    row.forEach { tech ->
-                        TechCard(tech, Modifier.weight(1f))
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    row.forEach { tech -> AppTechCard(tech, Modifier.weight(1f)) }
+                    if (row.size == 1) Spacer(Modifier.weight(1f))
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // ── Skills — uses chunked rows instead of FlowRow ─────────────────
+        AppSectionLabel("Skills you'll gain")
+        Column(
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            appSkills.chunked(3).forEach { rowSkills ->
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    rowSkills.forEach { skill ->
+                        Box(
+                            modifier = Modifier
+                                .background(Purple50, RoundedCornerShape(20.dp))
+                                .border(0.5.dp, Purple100, RoundedCornerShape(20.dp))
+                                .padding(horizontal = 12.dp, vertical = 6.dp)
+                        ) {
+                            Text(skill, fontSize = 12.sp, color = Purple500,
+                                fontWeight = FontWeight.Medium)
+                        }
                     }
                 }
             }
         }
 
-        SectionLabel("Skills you'll gain")
+        Spacer(modifier = Modifier.height(24.dp))
 
-        FlowRow(modifier = Modifier.padding(16.dp)) {
-            appSkills.forEach {
-                Box(
-                    modifier = Modifier
-                        .background(Purple50, RoundedCornerShape(20.dp))
-                        .padding(8.dp)
-                ) {
-                    Text(it, fontSize = 12.sp)
-                }
-            }
-        }
-
+        // ── CTA ───────────────────────────────────────────────────────────
         Button(
-            onClick = { navController.navigate("$ROUTE_COURSE/app") },
+            onClick = { navController.navigate("$ROUTE_COURSE/$ROUTE_APP") },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(horizontal = 16.dp)
+                .height(52.dp),
+            shape = RoundedCornerShape(14.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Purple500)
         ) {
-            Text("Start Android Track →")
+            Text("Start Android Track →", fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold, color = Color.White)
         }
-    }
-}
 
+        Spacer(modifier = Modifier.height(32.dp))
+
+    }   // end Column
+}   // end AppScreen
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Private helper composables — defined OUTSIDE AppScreen
+// ─────────────────────────────────────────────────────────────────────────────
 @Composable
-private fun StatChip(value: String, label: String) {
+private fun AppStatChip(value: String, label: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(value, fontWeight = FontWeight.Bold, color = Color.White)
-        Text(label, fontSize = 12.sp)
+        Text(value, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White)
+        Text(label, fontSize = 11.sp, color = Purple300)
     }
 }
 
 @Composable
-private fun SectionLabel(text: String) {
+private fun AppSectionLabel(text: String) {
     Text(
         text,
+        fontSize = 15.sp,
         fontWeight = FontWeight.SemiBold,
+        color = MaterialTheme.colorScheme.onBackground,
         modifier = Modifier.padding(horizontal = 16.dp)
     )
 }
 
 @Composable
-private fun TechCard(tech: TechItem, modifier: Modifier = Modifier) {
-    Row(modifier = modifier.padding(8.dp)) {
-        Text(tech.emoji)
+private fun AppTechCard(tech: TechItem, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .clip(RoundedCornerShape(12.dp))
+            .background(tech.color.copy(alpha = 0.10f))
+            .border(0.5.dp, tech.color.copy(alpha = 0.4f), RoundedCornerShape(12.dp))
+            .padding(10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(tech.emoji, fontSize = 20.sp)
+        Spacer(Modifier.width(8.dp))
         Column {
-            Text(tech.name, fontWeight = FontWeight.Bold)
-            Text(tech.desc, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(tech.name, fontSize = 12.sp, fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface)
+            Text(tech.desc, fontSize = 10.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
     }
 }
 
-@Preview
+// ─────────────────────────────────────────────────────────────────────────────
+// Preview
+// ─────────────────────────────────────────────────────────────────────────────
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewApp() {
-    AppScreen(rememberNavController())
+    MaterialTheme {
+        AppScreen(rememberNavController())
+    }
 }

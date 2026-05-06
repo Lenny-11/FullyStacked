@@ -16,13 +16,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.deepseek.fullystacked.ui.screens.Auth.LoginScreen
-import com.deepseek.fullystacked.ui.screens.course.CourseScreen
 import com.deepseek.fullystacked.ui.theme.Purple100
 import com.deepseek.fullystacked.ui.theme.Purple50
 
 @Composable
-fun HomeScreen( navController: NavController,
+fun HomeScreen(
+    navController: NavController,
     onCourseClick: (String) -> Unit = {}
 ) {
     Column(
@@ -31,46 +30,28 @@ fun HomeScreen( navController: NavController,
             .background(MaterialTheme.colorScheme.background)
             .padding(24.dp)
     ) {
-
         Text(
             text = "Welcome back 👋",
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium
         )
-
         Text(
             text = "What do you want to learn today?",
             fontSize = 14.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 4.dp)
         )
-
         Spacer(modifier = Modifier.height(24.dp))
-
-        CourseCard("Android Development", "Kotlin, Jetpack Compose") {
-            onCourseClick("android")
-        }
-
+        CourseCard("Android Development", "Kotlin, Jetpack Compose") { onCourseClick("android") }
         Spacer(modifier = Modifier.height(16.dp))
-
-        CourseCard("Web Development", "HTML, CSS, JavaScript") {
-            onCourseClick("web")
-        }
-
+        CourseCard("Web Development", "HTML, CSS, JavaScript") { onCourseClick("web") }
         Spacer(modifier = Modifier.height(16.dp))
-
-        CourseCard("Backend Development", "Node.js, APIs, Databases") {
-            onCourseClick("backend")
-        }
+        CourseCard("Backend Development", "Node.js, APIs, Databases") { onCourseClick("backend") }
     }
 }
 
 @Composable
-fun CourseCard(
-    title: String,
-    subtitle: String,
-    onClick: () -> Unit
-) {
+fun CourseCard(title: String, subtitle: String, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -81,21 +62,16 @@ fun CourseCard(
     ) {
         Column {
             Text(title, fontSize = 16.sp, fontWeight = FontWeight.Medium)
-            Text(
-                subtitle,
-                fontSize = 13.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            Text(subtitle, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }
+
+// FIX: Preview was calling LoginScreen(navController=...) which doesn't compile
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
     MaterialTheme {
-        LoginScreen(
-            navController = rememberNavController(),
-
-            )
+        HomeScreen(navController = rememberNavController())
     }
 }
