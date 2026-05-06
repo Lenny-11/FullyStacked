@@ -1,0 +1,9 @@
+{
+    "androidToolkit.keyboard.shortcuts": {
+        "run": "Enter",
+        "stop": "Mod+Shift+S",
+        "rerun": "Mod+R",
+        "releaseGate": "Mod+Shift+G",
+        "refresh": "Mod+Shift+R"
+    }
+}

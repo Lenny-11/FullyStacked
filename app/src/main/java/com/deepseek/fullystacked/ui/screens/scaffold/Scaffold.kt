@@ -1,6 +1,5 @@
 package com.deepseek.fullystacked.ui.screens.scaffold
 
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,9 +19,11 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.deepseek.fullystacked.ui.theme.Purple500
 
+// FIX: Renamed from LessonScreen to ScaffoldLessonScreen to avoid clash with
+// the real LessonScreen in ui/screens/lesson/LessonScreen.kt
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LessonScreen(
+fun ScaffoldLessonScreen(
     navController: NavController,
     title: String = "Lesson"
 ) {
@@ -37,24 +38,18 @@ fun LessonScreen(
             )
         }
     ) { innerPadding ->
-
         Column(
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(24.dp)
         ) {
-
             Text(
-                text = "This is where your lesson content will go. Add text, code examples, or videos here.",
+                text = "This is where your lesson content will go.",
                 fontSize = 14.sp
             )
-
             Spacer(modifier = Modifier.height(24.dp))
-
             Button(
-                onClick = {
-                    navController.navigate("course_screen") // update route if needed
-                },
+                onClick = { navController.popBackStack() },
                 colors = ButtonDefaults.buttonColors(containerColor = Purple500),
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier.fillMaxWidth()
@@ -71,10 +66,8 @@ fun LessonScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun LessonPreview() {
-    val navController = rememberNavController()
-
+fun ScaffoldLessonPreview() {
     MaterialTheme {
-        LessonScreen(navController = navController)
+        ScaffoldLessonScreen(navController = rememberNavController())
     }
 }

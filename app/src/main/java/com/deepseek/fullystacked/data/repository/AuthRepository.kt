@@ -6,7 +6,11 @@ import com.deepseek.fullystacked.data.model.AuthResult
 import com.deepseek.fullystacked.data.model.DbPaths
 import com.deepseek.fullystacked.data.model.UserProfile
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.FirebaseDatabase
 
+import kotlinx.coroutines.tasks.await
 
 class AuthRepository(
     private val auth: FirebaseAuth      = FirebaseAuth.getInstance(),
@@ -85,6 +89,7 @@ class AuthRepository(
     fun signOut() = auth.signOut()
 
     // ── Fetch user profile ────────────────────────────────────────────────
+    @RequiresApi(Build.VERSION_CODES.O)
     suspend fun getUserProfile(uid: String): UserProfile? {
         return try {
             val snapshot = db.getReference(DbPaths.user(uid)).get().await()
